@@ -1,6 +1,6 @@
 module "gke" {
   source = "./modules/gke"
-  project = var.project_name
+  project = var.project-name
   region  = var.region
 }
 module "cicd" {
