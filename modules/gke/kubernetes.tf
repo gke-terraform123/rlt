@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "test" {
   }
   depends_on = [
     google_container_cluster.gke-cluster,
-    google_container_node_pool.nodes,
+    google_container_node_pool.nodes
   ]
 }
 
