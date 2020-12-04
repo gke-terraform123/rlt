@@ -1,0 +1,40 @@
+substitutions:
+   _CUSTOM_REGION: europe-west4
+   _CUSTOM_CLUSTER: gke-cluster
+steps:
+  # Build app image
+  - name: gcr.io/cloud_builders/docker
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/rlt-test:latest", "."]
+
+  # Push my-app image to Google Cloud Registry
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/rlt-test:latest
+
+  #Configure a kubectl workspace for this project
+  # Have to enable Kubernetes Engine Developer role from Console -> CloudBuild -> Settings to allow CloudBuild Service Account to work with GKE  
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - cluster-info
+    env:
+      - CLOUDSDK_COMPUTE_REGION=$_CUSTOM_REGION
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
+      - KUBECONFIG=/workspace/.kube/config
+      
+  # Deploy with Helm
+  - name: gcr.io/$PROJECT_ID/helm
+    args:
+      - upgrade
+      - -i
+      - rtl-test
+      - ./chart
+      - --set
+      - image.repository=gcr.io/$PROJECT_ID/rlt-test,image.tag=latest
+      - -f
+      - ./chart/values.yaml
+    env:
+      - KUBECONFIG=/workspace/.kube/config
+      - TILLERLESS=true
+  
+timeout: 1200s       

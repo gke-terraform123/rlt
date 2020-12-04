@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"gke","Source":"./modules/gke","Dir":"modules/gke"},{"Key":"","Source":"","Dir":"."},{"Key":"cicd","Source":"./modules/cicd","Dir":"modules/cicd"},{"Key":"registry","Source":"./modules/registry","Dir":"modules/registry"}]}
