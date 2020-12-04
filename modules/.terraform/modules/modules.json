@@ -1,1 +1,0 @@
-{"Modules":[{"Key":"cluster","Source":"./modules/gke","Dir":""},{"Key":"","Source":"","Dir":"."},{"Key":"gke","Source":"./modules/gke","Dir":""},{"Key":"cicd","Source":"./modules/cicd","Dir":""}]}
