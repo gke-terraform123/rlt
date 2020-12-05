@@ -35,7 +35,7 @@ resource "kubernetes_deployment" "test" {
   ]
 }
 
-resource "kubernetes_service" "nginx" {
+resource "kubernetes_service" "rlt-service" {
   metadata {
     name = kubernetes_deployment.test.metadata[0].name
   }
