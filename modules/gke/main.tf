@@ -41,6 +41,12 @@ addons_config {
   http_load_balancing {
      disabled = false
      }
+  
+  istio_config {
+       disabled = false
+       auth     = "AUTH_NONE"
+    }  
+  
   }
 
 }
