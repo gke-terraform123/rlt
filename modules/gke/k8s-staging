@@ -1,0 +1,60 @@
+resource "kubernetes_deployment" "rlt-staging" {
+  metadata {
+    name = "rlt-staging"
+    namespace = "staging-zone" 
+  }
+
+  spec {
+    selector {
+      match_labels = {
+        app = "rlt"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "rlt"
+        }
+      }
+
+      spec {
+        container {
+          name  = "rlt"
+          image = "gcr.io/${var.project-name}/${var.image}:latest"
+
+          port {
+            container_port = 80
+          }
+        }
+      }
+    }
+  }
+  depends_on = [
+    google_container_cluster.primary,
+    google_container_node_pool.primary,
+    kubernetes_namespace.staging-zone,
+  ]
+}
+
+resource "kubernetes_service" "rlt-service-staging" {
+  metadata {
+    name = kubernetes_deployment.rlt-staging.metadata[0].name
+  }
+  spec {
+    selector = {
+      app = kubernetes_deployment.rlt-staging.spec.0.template.0.metadata[0].labels.app
+    }
+    port {
+      port        = 80
+      target_port = 80
+    }
+
+    type = "NodePort"
+  }
+   depends_on = [
+     google_container_cluster.gke-cluster,
+     google_container_node_pool.nodes,
+     kubernetes_namespace.staging
+  ]
+}
