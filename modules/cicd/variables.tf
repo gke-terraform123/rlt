@@ -11,3 +11,6 @@ variable "region" {
   default = "europe-west4"    
 }
 
+variable "trigger-name" {
+  type    = string
+  default = "happy-trigger"
