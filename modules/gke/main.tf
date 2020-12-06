@@ -17,12 +17,12 @@ resource "google_container_cluster" "gke-cluster" {
     client_certificate_config {
       issue_client_certificate = false
     }
- }
+  }
 
   logging_service            = "logging.googleapis.com/kubernetes"
   monitoring_service         = "monitoring.googleapis.com/kubernetes"
 
-   lifecycle {
+  lifecycle {
     create_before_destroy = true
 
     ignore_changes = [
@@ -30,23 +30,36 @@ resource "google_container_cluster" "gke-cluster" {
           ]
   }
 
+  network_policy {
+       enabled = true
+  }
+  
 
   timeouts {
-    create = "30m"
-    update = "30m"
-    delete = "30m"
+       create = "30m"
+       update = "30m"
+       delete = "30m"
   }
-addons_config {
+  
+  addons_config {
 
-  http_load_balancing {
-     disabled = false
+     http_load_balancing {
+          disabled = false
      }
   
-  istio_config {
-       disabled = false
-       auth     = "AUTH_NONE"
+     istio_config {
+           disabled = false
+           auth     = "AUTH_NONE"
     }  
-  
+    
+    horizontal_pod_autoscaling {
+           disabled = false
+    }
+
+    network_policy_config {
+          disabled = false
+    }
+    
   }
 
 }
