@@ -14,3 +14,4 @@ variable "region" {
 variable "trigger-name" {
   type    = string
   default = "happy-trigger"
+  }
