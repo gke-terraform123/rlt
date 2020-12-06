@@ -1,5 +1,5 @@
 output "host" {
-  value     = "${google_container_cluster.gke-cluster.endpoint}"
+  value     = "google_container_cluster.gke-cluster.endpoint"
  }
 
 output "ingress_ip" {
