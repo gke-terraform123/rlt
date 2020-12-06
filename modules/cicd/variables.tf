@@ -2,7 +2,7 @@ variable "project-name" {
   type    = string
   default = "rlt-test-297511"  
 }
-variable "repo_name" {   
+variable "repo-name" {   
   type    = string
   default = "rlt-test" 
 }
