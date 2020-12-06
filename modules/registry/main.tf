@@ -18,6 +18,3 @@ resource "google_storage_bucket_iam_member" "viewer" {
   role   = "roles/storage.objectViewer"
   member = "serviceAccount:${var.cluster-service-account-email}"
 }
-data "google_container_registry_image" "rlt" {
-  name = var.image
-}
