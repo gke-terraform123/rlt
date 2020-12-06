@@ -3,5 +3,5 @@ output "host" {
  }
 
 output "ingress_ip" {
-  value = formatlist("%s ", kubernetes_ingress.example.load_balancer_ingress[*].ip)
+  value = formatlist("%s ", kubernetes_ingress.rlt-ingress.load_balancer_ingress[*].ip)
 }
