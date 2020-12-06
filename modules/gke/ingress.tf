@@ -1,4 +1,4 @@
-resource "kubernetes_ingress" "rlt_ingress" {
+resource "kubernetes_ingress" "rlt-ingress" {
   metadata {
     name = "rlt-ingress"
 
