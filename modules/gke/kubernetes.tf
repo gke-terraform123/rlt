@@ -1,12 +1,14 @@
 resource "kubernetes_deployment" "test" {
+  for_each = toset(["rlt","rlt-new"])
+  
   metadata {
-    name = "rlt-new"
+    name = each.key
  }
 
   spec {
     selector {
       match_labels = {
-        app = "rlt"
+        app = each.key
       }
     }
 
@@ -14,13 +16,13 @@ resource "kubernetes_deployment" "test" {
     template {
       metadata {
         labels = {
-          app = "rlt"
+          app = each.key
         }
       }
       spec {
         container {
           image = "gcr.io/${var.project-name}/rlt-test:latest"
-          name  = "rlt"
+          name  = each.key
 
           port {
             container_port = 80
@@ -36,12 +38,14 @@ resource "kubernetes_deployment" "test" {
 }
 
 resource "kubernetes_service" "rlt-service" {
+  for_each = toset(["rlt","rlt-new"])
+  
   metadata {
-    name = kubernetes_deployment.test.metadata[0].name
+    name = each.key
   }
   spec {
     selector = {
-      app = kubernetes_deployment.test.spec.0.template.0.metadata[0].labels.app
+      app = each.key
     }
     port {
       port        = 80
