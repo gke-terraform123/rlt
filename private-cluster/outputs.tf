@@ -9,3 +9,5 @@ output "cluster_ca_certificate" {
 
 output "credentials" {
   value       = format("gcloud container clusters get-credentials --project %s --region %s --internal-ip %s", var.project-name, var.region-name, var.cluster-name)
+}  
+  
