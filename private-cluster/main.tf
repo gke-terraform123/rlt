@@ -1,7 +1,7 @@
 data "google_client_config" "current" {}
 
 resource "google_container_cluster" "gke-cluster-new" {
-  provider = "google-beta"
+  provider = google-beta
 
   name     = var.cluster-name
   project  = var.project-name
@@ -75,7 +75,7 @@ resource "google_container_cluster" "gke-cluster-new" {
 
 
 resource "google_container_node_pool" "private-nodes" {
-  provider = "google-beta"
+  provider = google-beta
 
   name       = var.pool 
   location   = var.region-name
